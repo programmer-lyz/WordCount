@@ -19,7 +19,7 @@ int getChar(FILE *fp)
 int getWord(FILE *fp)
 {
     int num=0;
-    int a=0,b=0;
+    int a=0,b=0;//标记位，判断单词是否重复 
     int flag=0;  //作为一个标志位，用来判断该字符的前一个字符是否是逗号还是空格
     char word;   //取出对应位置的字符，用Word去得到它的值
 
@@ -31,7 +31,7 @@ int getWord(FILE *fp)
         num--;
         b--;
     }
-    while(feof(fp)==0)
+    while(feof(fp)==0)//判断是否读完文件 
     {
         if(flag == 0 && (word == ' ' || word == ','))//判断该字符是否为逗号或空格，若是则它之前的所有字符归为一个单词，单词数加一
         {
@@ -39,7 +39,7 @@ int getWord(FILE *fp)
             flag = 1;
             a++;
         }
-        else if( (word != 32 && word != 44) && flag==1)
+        else if( (word != 32 && word != 44) && flag==1)//判断是否是空格，逗号，若是则单词数加一 
         {
             num++;
             flag = 0;
@@ -54,7 +54,7 @@ int getWord(FILE *fp)
 
     if(flag==1)//用来判断末尾字符是否为逗号还是空格
     {
-        num=a;
+        num=a; 
     }
     rewind(fp);
     if(a==b)//用来判断中间是否有被重复计算了的单词数目
@@ -71,7 +71,7 @@ int main(int argc,char*argv[])
     int num;
     char string;
 
-    if(argc==3)
+    if(argc==3)//参数 
     {
 
         fp = fopen(argv[2],"r");        //读取文件的内容
